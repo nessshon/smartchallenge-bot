@@ -8,3 +8,4 @@ redis
 SQLAlchemy~=2.0.23
 libscrc~=1.8.1
 pytonconnect~=0.3.0
+pydantic==2.3.0
