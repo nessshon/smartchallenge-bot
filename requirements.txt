@@ -1,0 +1,10 @@
+aiogram==3.2.0
+aiogram-tonconnect
+aiomysql
+cachetools~=5.3.2
+cryptography
+environs~=10.0.0
+redis
+SQLAlchemy~=2.0.23
+libscrc~=1.8.1
+pytonconnect~=0.3.0
