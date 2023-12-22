@@ -29,7 +29,7 @@ def main_menu(text_button: TextButton) -> Markup:
             [text_button.get_button("func_resources")],
             [text_button.get_button("tact_resources")],
             [text_button.get_button("leaderboard",
-                                    web_app=WebAppInfo(url="https://society.ton.org/ton-smart-challenge-5"))],
+                                    web_app=WebAppInfo(url="https://leaderboard.tonsmartchallenge.org/"))],
         ]
     )
 
