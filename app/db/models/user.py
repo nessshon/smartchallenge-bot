@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from aiogram.enums import ChatMemberStatus
 from sqlalchemy import *
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from ._abc import AbstractModel
 

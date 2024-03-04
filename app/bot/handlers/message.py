@@ -7,7 +7,6 @@ from aiogram_tonconnect import ATCManager
 from app.bot.handlers.windows import Window
 from app.bot.manager import Manager
 from app.bot.states import State
-from app.bot.utils import raw_to_userfriendly
 from app.db.models import UserDB
 
 router = Router()
@@ -79,7 +78,7 @@ async def send_codeforces_username_message(message: Message, manager: Manager, a
                 github_username=state_data.get("github_username"),
                 codeforces_username=state_data.get("codeforces_username"),
                 github_token=str(uuid.uuid4()),
-                wallet_address=raw_to_userfriendly(atc_manager.user.account_wallet.address),
+                wallet_address=atc_manager.user.account_wallet.address.to_userfriendly(),
             )
             await Window.main_menu(manager)
 

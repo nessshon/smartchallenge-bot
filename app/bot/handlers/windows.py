@@ -4,7 +4,6 @@ from aiogram_tonconnect.tonconnect.models import AccountWallet
 from app.bot import keyboards
 from app.bot.manager import Manager
 from app.bot.states import State
-from app.bot.utils import raw_to_userfriendly
 from app.db.models import UserDB
 
 
@@ -84,7 +83,7 @@ class Window:
             manager.user_db = await UserDB.update(
                 manager.async_session,
                 manager.user.id,
-                wallet_address=raw_to_userfriendly(account_wallet.address),
+                wallet_address=account_wallet.address.to_userfriendly(),
             )
 
         text = manager.text_message.get("my_profile")

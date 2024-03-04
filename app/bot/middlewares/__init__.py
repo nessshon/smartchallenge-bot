@@ -1,5 +1,7 @@
 from aiogram import Dispatcher
 from aiogram_tonconnect.middleware import AiogramTonConnectMiddleware
+from aiogram_tonconnect.tonconnect.storage.base import ATCRedisStorage
+from aiogram_tonconnect.utils.qrcode import QRUrlProvider
 
 from .config import ConfigMiddleware
 from .database import DBSessionMiddleware
@@ -13,9 +15,9 @@ def register_middlewares(dp: Dispatcher, **kwargs) -> None:
     """
     dp.update.outer_middleware.register(
         AiogramTonConnectMiddleware(
-            redis=kwargs["redis"],
+            storage=ATCRedisStorage(kwargs["redis"]),
             manifest_url=kwargs["config"].tonconnect.MANIFEST_URL,
-            exclude_wallets=["mytonwallet"],  # noqa
+            qrcode_provider=QRUrlProvider()
         )
     )
     dp.update.outer_middleware.register(DBSessionMiddleware(kwargs["sessionmaker"]))

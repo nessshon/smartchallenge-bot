@@ -9,7 +9,6 @@ from aiogram_tonconnect.tonconnect.models import ConnectWalletCallbacks
 from app.bot.handlers.windows import Window
 from app.bot.manager import Manager
 from app.bot.states import State
-from app.bot.utils import raw_to_userfriendly
 from app.db.models import UserDB
 
 router = Router()
@@ -29,7 +28,7 @@ async def select_language_callback_query(call: CallbackQuery, manager: Manager, 
             language_code=call.data,
         )
         await atc_manager.update_interfaces_language(call.data)
-        await atc_manager.open_connect_wallet_window(callbacks)
+        await atc_manager.connect_wallet(callbacks, check_proof=True)
 
     await call.answer()
 
@@ -60,7 +59,7 @@ async def send_nickname_callback_query(call: CallbackQuery, manager: Manager, at
             before_callback=Window.select_language,
             after_callback=Window.send_nickname,
         )
-        await atc_manager.open_connect_wallet_window(callbacks)
+        await atc_manager.connect_wallet(callbacks, check_proof=True)
     else:
         await manager.state.update_data(nickname=call.data)
         await Window.send_github_username(manager)
@@ -117,7 +116,7 @@ async def send_codeforces_username_callback_query(call: CallbackQuery, manager: 
             github_username=state_data.get("github_username"),
             codeforces_username=state_data.get("codeforces_username"),
             github_token=str(uuid.uuid4()),
-            wallet_address=raw_to_userfriendly(atc_manager.user.account_wallet.address),
+            wallet_address=atc_manager.user.account_wallet.address.to_userfriendly(),
         )
         await Window.main_menu(manager)
 
@@ -199,6 +198,6 @@ async def my_profile_callback_query(call: CallbackQuery, manager: Manager, atc_m
             before_callback=Window.my_profile,
             after_callback=Window.my_profile,
         )
-        await atc_manager.open_connect_wallet_window(callbacks)
+        await atc_manager.connect_wallet(callbacks, check_proof=True)
 
     await call.answer()
